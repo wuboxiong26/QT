@@ -1,0 +1,47 @@
+﻿#include "dormfind.h"
+#include "ui_dormfind.h"
+#include "globle.h"
+#include  "studentform.h"
+#include "mainwindow.h"
+
+dormfind::dormfind(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::dormfind)
+{
+    ui->setupUi(this);
+    setWindowTitle(QString("设计者1922030114，吴博雄"));
+    for(int i1=0;i1<Globel::list_all_dormstudent.size();i1++){
+
+        int row = ui->find_dorm_tableWidget->rowCount();
+
+        ui->find_dorm_tableWidget->insertRow(row);
+        QStringList rowdata=Globel::list_all_dormstudent[i1].toStringList();
+
+        for(int i  = 0 ; i <rowdata .size() ; i++)
+        {
+            QTableWidgetItem *item = new QTableWidgetItem;
+            item->setText(rowdata.at(i));
+            ui->find_dorm_tableWidget->setItem(row , i , item);
+        }
+
+    }
+
+
+
+}
+
+dormfind::~dormfind()
+{
+    delete ui;
+}
+
+void dormfind::on_stu_finddormButton_clicked()
+{
+    this->hide();
+    Globel::list_all_dormstudent.clear();
+    ui->find_dorm_tableWidget->clear();
+
+    studentForm  *f2=new studentForm;
+
+    f2->show();
+}
